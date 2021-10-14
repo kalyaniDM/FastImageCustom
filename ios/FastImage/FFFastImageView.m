@@ -195,9 +195,16 @@
 }
 
 - (void)downloadImage:(FFFastImageSource *) source options:(SDWebImageOptions) options context:(SDWebImageContext *)context {
+    UIImage *placeholderImage;
+    if(_source.cacheControl==FFFCacheControlCacheOnly){
+        placeholderImage=[UIImage imageNamed:@"defaultArticleImage"];
+    }
+    else{
+        placeholderImage=nil;
+    }
     __weak typeof(self) weakSelf = self; // Always use a weak reference to self in blocks
     [self sd_setImageWithURL:_source.url
-            placeholderImage:nil
+            placeholderImage:placeholderImage
                      options:options
                      context:context
                     progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {

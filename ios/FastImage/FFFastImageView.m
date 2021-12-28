@@ -196,11 +196,20 @@
 
 - (void)downloadImage:(FFFastImageSource *) source options:(SDWebImageOptions) options context:(SDWebImageContext *)context {
     UIImage *placeholderImage;
+    SDWebImageManager *imageManager = [SDWebImageManager sharedManager];
+    NSString *key = [imageManager cacheKeyForURL:_source.url];
+    BOOL isCached = [[SDImageCache sharedImageCache] diskImageDataExistsWithKey:key];
+    UIImage *placeholderImage;
     if(_source.cacheControl==FFFCacheControlCacheOnly){
-        placeholderImage=[UIImage imageNamed:@"defaultArticleImage"];
+    if (isCached) {
+    placeholderImage=nil;
     }
     else{
-        placeholderImage=nil;
+    placeholderImage=[UIImage imageNamed:@"defaultArticleImage"];
+    }
+    }
+    else{
+    placeholderImage=nil;
     }
     __weak typeof(self) weakSelf = self; // Always use a weak reference to self in blocks
     [self sd_setImageWithURL:_source.url

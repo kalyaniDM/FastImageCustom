@@ -3,6 +3,7 @@
 var _extends = require('@babel/runtime/helpers/extends');
 var React = require('react');
 var reactNative = require('react-native');
+import preloaderManager from './preloaderManager'
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -93,7 +94,9 @@ FastImage.resizeMode = resizeMode;
 FastImage.cacheControl = cacheControl;
 FastImage.priority = priority;
 
-FastImage.preload = sources => FastImageViewNativeModule.preload(sources);
+FastImage.preload = (sources, onProgress, onComplete) => {
+  preloaderManager.preload(sources, onProgress, onComplete)
+}
 FastImage.getCachePath = uri => FastImageViewNativeModule.getCachePath(uri);
 FastImage.clearMemoryCache = () => FastImageViewNativeModule.clearMemoryCache();
 

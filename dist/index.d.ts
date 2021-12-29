@@ -90,11 +90,20 @@ export interface FastImageProps extends AccessibilityProps, ViewProps {
      */
     children?: React.ReactNode;
 }
+export interface PreloadProgressHandler {
+    (urls: string[], loaded: number, total: number): void
+}
+
+export interface PreloadCompletionHandler {
+    (urls: string[], loaded: number, skipped: number): void
+}
 export interface FastImageStaticProperties {
     resizeMode: typeof resizeMode;
     priority: typeof priority;
     cacheControl: typeof cacheControl;
-    preload: (sources: Source[]) => void;
+    preload: (sources: Source[],
+        onProgress?: PreloadProgressHandler,
+        onComplete?: PreloadCompletionHandler) => void;
     clearMemoryCache: () => Promise<void>;
     clearDiskCache: () => Promise<void>;
 }

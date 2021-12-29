@@ -195,7 +195,6 @@
 }
 
 - (void)downloadImage:(FFFastImageSource *) source options:(SDWebImageOptions) options context:(SDWebImageContext *)context {
-    UIImage *placeholderImage;
     SDWebImageManager *imageManager = [SDWebImageManager sharedManager];
     NSString *key = [imageManager cacheKeyForURL:_source.url];
     BOOL isCached = [[SDImageCache sharedImageCache] diskImageDataExistsWithKey:key];

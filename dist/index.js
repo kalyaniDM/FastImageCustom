@@ -1,8 +1,8 @@
 import _extends from '@babel/runtime/helpers/extends';
 import React, { forwardRef, memo } from 'react';
-import { NativeModules, StyleSheet, requireNativeComponent, Image, View } from 'react-native';
+import { View, Image, requireNativeComponent, StyleSheet } from 'react-native'
+import preloaderManager from './preloaderManager'
 
-const FastImageViewNativeModule = NativeModules.FastImageView;
 const resizeMode = {
   contain: 'contain',
   cover: 'cover',
@@ -86,7 +86,9 @@ FastImage.resizeMode = resizeMode;
 FastImage.cacheControl = cacheControl;
 FastImage.priority = priority;
 
-FastImage.preload = sources => FastImageViewNativeModule.preload(sources);
+FastImage.preload = (sources, onProgress, onComplete) => {
+    preloaderManager.preload(sources, onProgress, onComplete)
+}
 
 FastImage.clearMemoryCache = () => FastImageViewNativeModule.clearMemoryCache();
 

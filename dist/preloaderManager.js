@@ -27,21 +27,21 @@ class PreloaderManager {
     onProgress = ({ id, finished, total, url }) => {
         const instance = this._instances.get(id)
         // null is returned when url failed to load
-        if (url) {
-            instance.urls = [...instance.urls, url]
+        if (url != null && url != undefined && instance != null && instance != undefined) {
+            instance.urls = [...instance?.urls, url]
         }
-        if (instance.onProgress) {
-            instance.onProgress(instance.urls, finished, total)
+        if (instance != null && instance != undefined && instance.onProgress && instance.urls) {
+            instance?.onProgress(instance?.urls, finished, total)
         }
     }
 
     onComplete = ({ id, finished, skipped }) => {
         const { onComplete, urls } = this._instances.get(id)
-        if (onComplete) {
+        if (onComplete != null && onComplete != undefined) {
             onComplete(urls, finished, skipped)
         }
         this._instances.delete(id)
-        if (this._instances.size === 0) {
+        if (this._instances?.size === 0) {
             this._subProgress.remove()
             this._subComplete.remove()
         }

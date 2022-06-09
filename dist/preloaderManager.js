@@ -48,7 +48,7 @@ class PreloaderManager {
 //     }
      onComplete = ({ id, finished, skipped }) => {
         const instance = this._instances.get(id);
-        const { onComplete, urls } = this._instances.get(id)
+//         const { onComplete, urls } = this._instances.get(id)
          if (instance != null && instance != undefined && instance.onComplete != null && instance.onComplete != undefined && instance.urls) {
               instance.onComplete(instance.urls, finished, skipped)
          }

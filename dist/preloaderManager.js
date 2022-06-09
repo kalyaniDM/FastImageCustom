@@ -35,11 +35,23 @@ class PreloaderManager {
         }
     }
 
-    onComplete = ({ id, finished, skipped }) => {
+//     onComplete = ({ id, finished, skipped }) => {
+//         const { onComplete, urls } = this._instances.get(id)
+//         if (onComplete != null && onComplete != undefined) {
+//             onComplete(urls, finished, skipped)
+//         }
+//         this._instances.delete(id)
+//         if (this._instances?.size === 0) {
+//             this._subProgress.remove()
+//             this._subComplete.remove()
+//         }
+//     }
+     onComplete = ({ id, finished, skipped }) => {
+        const instance = this._instances.get(id);
         const { onComplete, urls } = this._instances.get(id)
-        if (onComplete != null && onComplete != undefined) {
-            onComplete(urls, finished, skipped)
-        }
+         if (instance != null && instance != undefined && instance.onComplete != null && instance.onComplete != undefined && instance.urls) {
+              instance.onComplete(instance.urls, finished, skipped)
+         }
         this._instances.delete(id)
         if (this._instances?.size === 0) {
             this._subProgress.remove()
